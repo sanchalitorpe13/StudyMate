@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     Moungiri Coachings StudyMate — Career Guidance
+     ============================================================ -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>
+    // Anyone not signed in is sent to the login page first.
+    if (!localStorage.getItem('mc_user')) { window.location.replace('login.html'); }
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Career Guidance — Moungiri Coachings StudyMate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="career">
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">MC</span> Moungiri</a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Open menu">&#9776;</button>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="study-material.html">Study Material</a>
+      <a href="pyq.html">PYQs</a>
+      <a href="mock-test.html">Mock Tests</a>
+      <a href="career.html">Career</a>
+      <a href="scholarships.html">Scholarships</a>
+      <a class="btn btn-ghost btn-sm" href="student-dashboard.html">Dashboard</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container" style="padding-block:34px 60px">
+
+  <div class="page-head">
+    <div>
+      <h1 style="font-size:2rem">What comes after Class 12</h1>
+      <p>Six paths, the entrance exam each one needs, and where it leads.</p>
+    </div>
+    <a class="btn btn-ghost" href="scholarships.html">See scholarships</a>
+  </div>
+
+  <div class="grid grid-3" id="careerList"></div>
+
+  <section class="card mt-24">
+    <h3>Choosing between them</h3>
+    <p class="mt-16">
+      Start from the subject you are willing to study for four more years, not
+      from the salary figure. Talk to two people already working in the field and
+      ask what their ordinary Tuesday looks like. Then check which entrance exam
+      that path needs and whether it fits the subjects you are taking now.
+    </p>
+    <p class="mt-16">
+      Your college career counsellor and the AICTE career portal can help with
+      the detail. The chatbot on this site can answer quick questions in the
+      meantime.
+    </p>
+    <a class="btn btn-primary mt-16" href="chatbot.html">Ask the chatbot</a>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom" style="border:none;margin:0;padding:0">
+      <span>Moungiri Coachings StudyMate &mdash; a frontend demo, not yet connected to a live server.</span>
+      <span><a href="index.html">Back to home</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

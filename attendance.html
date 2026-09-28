@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     Moungiri Coachings StudyMate — Attendance (Assignment 3, Screen 17.7)
+     ============================================================ -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>
+    // Signed-out visitors go to login. Signed in but the wrong role for
+    // this dashboard? Send them to their own dashboard instead.
+    (function () {
+      var raw = localStorage.getItem('mc_user');
+      if (!raw) { window.location.replace('login.html'); return; }
+      var u; try { u = JSON.parse(raw); } catch (e) { window.location.replace('login.html'); return; }
+      if (u.role !== 'student') {
+        else if (u.role === 'faculty') window.location.replace('faculty-dashboard.html');
+      else if (u.role === 'admin') window.location.replace('admin-dashboard.html');
+      }
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Attendance — Moungiri Coachings StudyMate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="attendance">
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">MC</span> Moungiri</a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Open menu">&#9776;</button>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="student-dashboard.html">Dashboard</a>
+      <a href="feedback.html">Feedback</a>
+      <a class="btn btn-ghost btn-sm" href="#" data-logout>Sign out</a>
+    </nav>
+  </div>
+</header>
+
+<div class="shell">
+  <aside class="sidebar">
+    <p class="sidebar-title">Study</p>
+    <a href="student-dashboard.html">&#128200; Dashboard</a>
+    <a href="study-material.html">&#128218; Study Material</a>
+    <a href="pyq.html">&#128196; Previous Year Papers</a>
+    <a href="mock-test.html">&#9200; Mock Tests</a>
+    <a href="quizzes.html">&#128221; Quizzes</a>
+    <a href="chatbot.html">&#129302; AI Chatbot</a>
+    <p class="sidebar-title">Guidance</p>
+    <a href="career.html">&#127891; Career Guidance</a>
+    <a href="scholarships.html">&#127942; Scholarships</a>
+    <p class="sidebar-title">My records</p>
+    <a href="attendance.html">&#128197; Attendance</a>
+    <a href="fees.html">&#128179; Fees &amp; Receipt</a>
+    <a href="feedback.html">&#128172; Feedback</a>
+    <div class="sidebar-user">
+      <strong data-user-name>Prerna Shinde</strong>
+      <small data-user-role>Student</small>
+      <button class="btn btn-ghost btn-sm mt-16" data-logout>Sign out</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="page-head">
+      <div>
+        <h1 style="font-size:1.8rem">Attendance</h1>
+        <p>Lectures held and attended, subject by subject.</p>
+      </div>
+      <div class="field" style="margin:0;min-width:180px">
+        <label for="month">Period</label>
+        <select id="month">
+          <option>Whole term</option>
+          <option>September 2026</option>
+          <option>August 2026</option>
+          <option>July 2026</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid grid-2 mb-24" style="align-items:start">
+      <div class="card">
+        <h3>Overall attendance</h3>
+        <p style="font-family:'Plus Jakarta Sans';font-size:3rem;font-weight:800;color:var(--ink);line-height:1;margin:14px 0">
+          <span id="overallPct">—</span>
+        </p>
+        <div class="bar" style="width:100%"><span id="overallBar" style="width:0"></span></div>
+        <p class="small mt-16" id="attNote"></p>
+      </div>
+
+      <div class="stat-cards" style="grid-template-columns:repeat(3,1fr)">
+        <div class="stat-card"><small>Lectures held</small><b id="heldTotal">—</b></div>
+        <div class="stat-card"><small>Attended</small><b id="attTotal">—</b></div>
+        <div class="stat-card"><small>Missed</small><b id="missedTotal">—</b></div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Subject</th><th>Held</th><th>Attended</th><th>Missed</th><th>Percentage</th><th>Status</th></tr>
+        </thead>
+        <tbody id="attBody"></tbody>
+      </table>
+    </div>
+
+    <p class="hint mt-16">
+      The period dropdown is just for show right now — every view is the whole
+      term's data.
+    </p>
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

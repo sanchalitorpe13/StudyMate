@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     Moungiri Coachings StudyMate — Study Material (Assignment 3, Screen 17.4)
+     Filters run in the browser over the MATERIALS array.
+     ============================================================ -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>
+    // Anyone not signed in is sent to the login page first.
+    if (!localStorage.getItem('mc_user')) { window.location.replace('login.html'); }
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Study Material — Moungiri Coachings StudyMate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="material">
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">MC</span> Moungiri</a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Open menu">&#9776;</button>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="study-material.html">Study Material</a>
+      <a href="pyq.html">PYQs</a>
+      <a href="mock-test.html">Mock Tests</a>
+      <a href="career.html">Career</a>
+      <a href="scholarships.html">Scholarships</a>
+      <a class="btn btn-ghost btn-sm" href="student-dashboard.html">Dashboard</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container" style="padding-block:34px 60px">
+
+  <div class="page-head">
+    <div>
+      <h1 style="font-size:2rem">Study Material</h1>
+      <p>Notes, formula sheets, topic PDFs and MCQ sets for Class 11 and 12.</p>
+    </div>
+    <a class="btn btn-ghost" href="chatbot.html">Ask a doubt instead</a>
+  </div>
+
+  <!-- ---------- Filters ---------- -->
+  <div class="filters" id="filterBar">
+    <div class="field">
+      <label for="fClass">Class</label>
+      <select id="fClass">
+        <option value="">All classes</option>
+        <option value="11">Class 11</option>
+        <option value="12">Class 12</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="fSubject">Subject</label>
+      <select id="fSubject">
+        <option value="">All subjects</option>
+        <option>Physics</option>
+        <option>Chemistry</option>
+        <option>Maths</option>
+        <option>Biology</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="fType">Type</label>
+      <select id="fType">
+        <option value="">All types</option>
+        <option>Notes</option>
+        <option>Formula Sheet</option>
+        <option>Topic PDF</option>
+        <option>MCQs</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="fExam">Useful for</label>
+      <select id="fExam">
+        <option value="">Any exam</option>
+        <option>JEE</option>
+        <option>NEET</option>
+        <option>MHT-CET</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="fSearch">Search</label>
+      <input type="text" id="fSearch" placeholder="Chapter or topic name">
+    </div>
+    <button class="btn btn-ghost" id="clearFilters">Clear filters</button>
+  </div>
+
+  <p class="text-muted small mb-16" id="materialCount"></p>
+
+  <!-- ---------- Results ---------- -->
+  <div class="grid grid-3" id="materialList"></div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom" style="border:none;margin:0;padding:0">
+      <span>Moungiri Coachings StudyMate &mdash; a frontend demo, not yet connected to a live server.</span>
+      <span><a href="index.html">Back to home</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

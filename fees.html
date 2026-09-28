@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     Moungiri Coachings StudyMate — Fees and receipt (Assignment 3, Screen 17.7)
+     The receipt panel is styled for printing; see the @media print
+     block at the end of style.css.
+     ============================================================ -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>
+    // Signed-out visitors go to login. Signed in but the wrong role for
+    // this dashboard? Send them to their own dashboard instead.
+    (function () {
+      var raw = localStorage.getItem('mc_user');
+      if (!raw) { window.location.replace('login.html'); return; }
+      var u; try { u = JSON.parse(raw); } catch (e) { window.location.replace('login.html'); return; }
+      if (u.role !== 'student') {
+        else if (u.role === 'faculty') window.location.replace('faculty-dashboard.html');
+      else if (u.role === 'admin') window.location.replace('admin-dashboard.html');
+      }
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fees and receipt — Moungiri Coachings StudyMate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="fees">
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">MC</span> Moungiri</a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Open menu">&#9776;</button>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="student-dashboard.html">Dashboard</a>
+      <a href="feedback.html">Feedback</a>
+      <a class="btn btn-ghost btn-sm" href="#" data-logout>Sign out</a>
+    </nav>
+  </div>
+</header>
+
+<div class="shell">
+  <aside class="sidebar">
+    <p class="sidebar-title">Study</p>
+    <a href="student-dashboard.html">&#128200; Dashboard</a>
+    <a href="study-material.html">&#128218; Study Material</a>
+    <a href="pyq.html">&#128196; Previous Year Papers</a>
+    <a href="mock-test.html">&#9200; Mock Tests</a>
+    <a href="quizzes.html">&#128221; Quizzes</a>
+    <a href="chatbot.html">&#129302; AI Chatbot</a>
+    <p class="sidebar-title">Guidance</p>
+    <a href="career.html">&#127891; Career Guidance</a>
+    <a href="scholarships.html">&#127942; Scholarships</a>
+    <p class="sidebar-title">My records</p>
+    <a href="attendance.html">&#128197; Attendance</a>
+    <a href="fees.html">&#128179; Fees &amp; Receipt</a>
+    <a href="feedback.html">&#128172; Feedback</a>
+    <div class="sidebar-user">
+      <strong data-user-name>Prerna Shinde</strong>
+      <small data-user-role>Student</small>
+      <button class="btn btn-ghost btn-sm mt-16" data-logout>Sign out</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="page-head">
+      <div>
+        <h1 style="font-size:1.8rem">Fees and receipt</h1>
+        <p>What has been paid, what is still due, and your latest receipt.</p>
+      </div>
+      <button class="btn btn-primary no-print" id="printBtn">Print the receipt</button>
+    </div>
+
+    <div class="stat-cards" style="grid-template-columns:repeat(3,1fr)">
+      <div class="stat-card"><small>Total fees</small><b id="feeTotal">—</b><small class="text-muted">Academic year 2026&ndash;27</small></div>
+      <div class="stat-card"><small>Paid</small><b id="feePaid">—</b><small class="text-muted">Across 3 payments</small></div>
+      <div class="stat-card"><small>Pending</small><b id="feePending">—</b><small class="text-muted">Next due 15 November</small></div>
+    </div>
+
+    <h2 class="mb-16 no-print" style="font-size:1.2rem">Payment history</h2>
+    <div class="table-wrap mb-24 no-print">
+      <table>
+        <thead>
+          <tr><th>Receipt no.</th><th>Date</th><th>Head</th><th>Mode</th><th>Amount</th><th>Status</th></tr>
+        </thead>
+        <tbody id="feeBody"></tbody>
+      </table>
+    </div>
+
+    <!-- ---------- Printable receipt ---------- -->
+    <h2 class="mb-16 no-print" style="font-size:1.2rem">Latest receipt</h2>
+    <div class="receipt">
+      <div class="receipt-head">
+        <div>
+          <strong style="font-family:'Plus Jakarta Sans';font-size:1.2rem;color:var(--ink)">Moungiri Coachings StudyMate</strong>
+          <p class="small text-muted">Ahilyanagar, Maharashtra</p>
+        </div>
+        <div style="text-align:right">
+          <strong style="color:var(--ink)">Fee receipt</strong>
+          <p class="small text-muted">No. <span id="rNo">—</span></p>
+        </div>
+      </div>
+
+      <div class="receipt-row"><span>Student</span><strong data-user-name>Prerna Shinde</strong></div>
+      <div class="receipt-row"><span>Class</span><strong>Class 12 (PCB)</strong></div>
+      <div class="receipt-row"><span>Date of payment</span><strong id="rDate">—</strong></div>
+      <div class="receipt-row"><span>Fee head</span><strong id="rHead">—</strong></div>
+      <div class="receipt-row"><span>Mode of payment</span><strong id="rMode">—</strong></div>
+      <div class="receipt-row"><span>Amount received</span><strong id="rAmount">—</strong></div>
+      <div class="receipt-row"><span>Total paid to date</span><strong id="rPaidTotal">—</strong></div>
+      <div class="receipt-row receipt-total"><span>Balance outstanding</span><span id="rBalance">—</span></div>
+
+      <p class="hint mt-24">
+        Computer-generated receipt. No signature required. Produced by the
+        Moungiri Coachings StudyMate prototype for demonstration.
+      </p>
+    </div>
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

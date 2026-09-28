@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     Moungiri Coachings StudyMate — Quizzes (student side)
+     Three views in one page: list, attempt (with anti-cheat
+     deterrents), and result + leaderboard. See script.js Pages.quizzes
+     for how the anti-cheat deterrents work and their real limits.
+     ============================================================ -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>
+    // Signed-out visitors go to login. Signed in but the wrong role for
+    // this dashboard? Send them to their own dashboard instead.
+    (function () {
+      var raw = localStorage.getItem('mc_user');
+      if (!raw) { window.location.replace('login.html'); return; }
+      var u; try { u = JSON.parse(raw); } catch (e) { window.location.replace('login.html'); return; }
+      if (u.role !== 'student') {
+        else if (u.role === 'faculty') window.location.replace('faculty-dashboard.html');
+      else if (u.role === 'admin') window.location.replace('admin-dashboard.html');
+      }
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quizzes — Moungiri Coachings StudyMate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="quizzes" class="role-student">
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">MC</span> Moungiri</a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Open menu">&#9776;</button>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="student-dashboard.html">Dashboard</a>
+      <a href="feedback.html">Feedback</a>
+      <a class="btn btn-ghost btn-sm" href="#" data-logout>Sign out</a>
+    </nav>
+  </div>
+</header>
+
+<div class="shell">
+  <aside class="sidebar">
+    <p class="sidebar-title">Study</p>
+    <a href="student-dashboard.html">&#128200; Dashboard</a>
+    <a href="study-material.html">&#128218; Study Material</a>
+    <a href="pyq.html">&#128196; Previous Year Papers</a>
+    <a href="mock-test.html">&#9200; Mock Tests</a>
+    <a href="quizzes.html">&#128221; Quizzes</a>
+    <a href="chatbot.html">&#129302; AI Chatbot</a>
+    <p class="sidebar-title">Guidance</p>
+    <a href="career.html">&#127891; Career Guidance</a>
+    <a href="scholarships.html">&#127942; Scholarships</a>
+    <p class="sidebar-title">My records</p>
+    <a href="attendance.html">&#128197; Attendance</a>
+    <a href="fees.html">&#128179; Fees &amp; Receipt</a>
+    <a href="feedback.html">&#128172; Feedback</a>
+    <div class="sidebar-user">
+      <strong data-user-name>Prerna Shinde</strong>
+      <small data-user-role>Student</small>
+      <button class="btn btn-ghost btn-sm mt-16" data-logout>Sign out</button>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <!-- ---------- View 1: list of published quizzes ---------- -->
+    <section id="listView">
+      <div class="page-head">
+        <div>
+          <h1 style="font-size:1.8rem">Quizzes from your faculty</h1>
+          <p>Quizzes your teachers have published, in this browser.</p>
+        </div>
+      </div>
+      <p class="quiz-note">
+        A quiz only appears here if it was created and published in this
+        same browser — this demo has no server to share it across devices.
+      </p>
+      <div class="grid grid-3" id="quizCards"></div>
+    </section>
+
+    <!-- ---------- View 2: taking the quiz ---------- -->
+    <section id="attemptView" class="hidden">
+      <div class="page-head">
+        <div>
+          <h1 style="font-size:1.5rem" id="atTitle">Quiz</h1>
+          <p id="atMeta"></p>
+        </div>
+        <div class="timer" id="atTimer">00:00</div>
+      </div>
+
+      <p class="quiz-note">
+        This quiz watches for switching tabs or leaving fullscreen and will
+        auto-submit if it happens twice. It cannot detect or block a photo
+        taken with another phone or camera — the watermark below is there
+        so a leaked screenshot can still be traced back to who took it.
+        <button type="button" class="btn btn-ghost btn-sm hidden" id="atFsRetry" style="margin-left:8px">Enter fullscreen</button>
+      </p>
+
+      <div class="test-layout">
+        <div class="card" id="atCard" style="position:relative">
+          <div class="watermark-layer" id="atWatermark"></div>
+          <small class="text-muted" id="atQNumber"></small>
+          <h3 class="mt-16 mb-24" id="atQText" style="font-size:1.12rem"></h3>
+          <div id="atOptions"></div>
+          <div class="flex between mt-24">
+            <div class="flex">
+              <button class="btn btn-ghost btn-sm" id="atPrev">Previous</button>
+              <button class="btn btn-ghost btn-sm" id="atClear">Clear answer</button>
+            </div>
+            <button class="btn btn-primary" id="atNext">Next</button>
+          </div>
+        </div>
+        <aside class="card">
+          <h3 style="font-size:1rem">Question palette</h3>
+          <p class="small mt-16 mb-16">Green means answered.</p>
+          <div class="palette" id="atPalette"></div>
+          <button class="btn btn-amber btn-block mt-24" id="atSubmit">Submit the quiz</button>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ---------- View 3: result + leaderboard ---------- -->
+    <section id="resultView" class="hidden">
+      <div class="page-head">
+        <div>
+          <h1 style="font-size:1.8rem">Your result</h1>
+          <p id="rsVerdict"></p>
+        </div>
+        <a class="btn btn-ghost" href="quizzes.html">Back to quizzes</a>
+      </div>
+
+      <div class="grid grid-2 mb-24" style="align-items:start">
+        <div class="card text-center">
+          <div class="score-ring" id="rsRing"><div id="rsPct">0%</div></div>
+          <p class="text-muted" style="margin-inline:auto">Score</p>
+        </div>
+        <div class="stat-cards" style="grid-template-columns:1fr;gap:14px">
+          <div class="stat-card"><small>Correct</small><b id="rsRight">0</b></div>
+          <div class="stat-card"><small>Your class rank</small><b id="rsRank">—</b></div>
+          <div class="stat-card"><small>Time taken</small><b id="rsTime">0m</b></div>
+          <div class="stat-card"><small>Times you left the quiz</small><b id="rsSwitches">0</b></div>
+        </div>
+      </div>
+
+      <h3 class="mb-16" style="font-size:1.15rem">Class leaderboard</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Rank</th><th>Student</th><th>Score</th><th>Time taken</th></tr></thead>
+          <tbody id="rsBoard"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

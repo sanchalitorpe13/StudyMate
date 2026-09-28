@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     Moungiri Coachings StudyMate — Scholarships
+     ============================================================ -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>
+    // Anyone not signed in is sent to the login page first.
+    if (!localStorage.getItem('mc_user')) { window.location.replace('login.html'); }
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scholarships — Moungiri Coachings StudyMate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="scholarships">
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">MC</span> Moungiri</a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Open menu">&#9776;</button>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="study-material.html">Study Material</a>
+      <a href="pyq.html">PYQs</a>
+      <a href="mock-test.html">Mock Tests</a>
+      <a href="career.html">Career</a>
+      <a href="scholarships.html">Scholarships</a>
+      <a class="btn btn-ghost btn-sm" href="student-dashboard.html">Dashboard</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container" style="padding-block:34px 60px">
+
+  <div class="page-head">
+    <div>
+      <h1 style="font-size:2rem">Scholarships you can apply for</h1>
+      <p>Central and Maharashtra schemes open to Class 11 and 12 students.</p>
+    </div>
+    <div class="field" style="margin:0;min-width:190px">
+      <label for="sCat">Category</label>
+      <select id="sCat">
+        <option value="">All categories</option>
+        <option>Government</option>
+        <option>State</option>
+        <option>Merit</option>
+        <option>Girls</option>
+        <option>Private</option>
+      </select>
+    </div>
+  </div>
+
+  <p class="text-muted small mb-16" id="schCount"></p>
+
+  <div class="grid grid-3" id="schList"></div>
+
+  <div class="card mt-24">
+    <h3>Before you apply</h3>
+    <p class="mt-16">
+      Keep your Aadhaar, income certificate, domicile certificate, caste
+      certificate where applicable, mark sheets and a bank passbook scanned and
+      ready. Most portals reject applications for a mismatch in the name across
+      documents, so check the spelling matches your Class 10 certificate exactly.
+    </p>
+    <p class="hint mt-16">
+      Amounts and last dates shown here are from the project survey and may
+      change. Always confirm on the official portal before applying.
+    </p>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom" style="border:none;margin:0;padding:0">
+      <span>Moungiri Coachings StudyMate &mdash; a frontend demo, not yet connected to a live server.</span>
+      <span><a href="index.html">Back to home</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

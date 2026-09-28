@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     Moungiri Coachings StudyMate — Home page
+     Community Engagement Project, Assignment 3, Screen 17.1
+     ============================================================ -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Runs before the rest of the page loads: anyone not signed in is sent
+       straight to the login page. Already signed in? They see the home
+       page normally. This only guards the entry point — once signed in,
+       the nav, sidebar links, and every other page work as usual. -->
+  <script>
+    if (!localStorage.getItem('mc_user')) {
+      window.location.replace('login.html');
+    }
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Moungiri Coachings StudyMate — Study material and exam guidance for Class 11 and 12</title>
+  <meta name="description" content="Notes, previous year papers, mock tests, career guidance and scholarships for Class 11 and 12 students preparing for JEE, NEET and MHT-CET.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="home">
+
+<!-- ---------- Header (repeated on every page) ---------- -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">MC</span> Moungiri</a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Open menu">&#9776;</button>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="study-material.html">Study Material</a>
+      <a href="pyq.html">PYQs</a>
+      <a href="mock-test.html">Mock Tests</a>
+      <a href="career.html">Career</a>
+      <a href="scholarships.html">Scholarships</a>
+      <a class="btn btn-primary btn-sm" href="login.html">Sign in</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ---------- Hero ----------
+       Placeholders below (years running, exact batches, city) are marked
+       clearly — replace them with Moungiri Coachings StudyMate' real details. -->
+  <section class="hero">
+    <div class="container">
+      <span class="hero-tagline">Moungiri Coachings StudyMate &mdash; serving Ahilyanagar district students</span>
+      <h1>The Moungiri way to JEE, NEET and MHT-CET.</h1>
+      <p class="small" style="color:#e9d3d3;margin-top:4px">
+        <!-- TODO: replace with the real address/landmark -->
+        &#128205; [Add exact address here], Ahilyanagar, Maharashtra
+      </p>
+      <p class="hero-sub">
+        This is our own student portal &mdash; the same notes, papers, and
+        test practice we use in the classroom, now available any time you
+        need them. Built for our JEE, NEET and MHT-CET batches, alongside
+        the guidance our faculty already give you in person.
+      </p>
+      <div class="role-buttons">
+        <a class="btn btn-accent" href="login.html?role=student">Student sign in</a>
+        <a class="btn btn-ghost" href="login.html?role=faculty">Faculty sign in</a>
+        <a class="btn btn-ghost" href="login.html?role=admin">Owner / Admin sign in</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- Statistics strip ---------- -->
+  <div class="container">
+    <div class="stat-strip">
+      <div><span class="stat-num" data-count="1240" data-suffix="+">0</span><small>Students surveyed</small></div>
+      <div><span class="stat-num" data-count="380" data-suffix="+">0</span><small>Notes and PDFs</small></div>
+      <div><span class="stat-num" data-count="95">0</span><small>Question papers</small></div>
+      <div><span class="stat-num" data-count="5">0</span><small>Exams covered</small></div>
+    </div>
+  </div>
+
+  <!-- ---------- Core features ---------- -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Start with what you need today</h2>
+        <p>Four core sections cover daily study and exam practice.</p>
+      </div>
+
+      <div class="grid grid-4">
+        <a class="tile" href="study-material.html">
+          <div class="tile-icon">&#128218;</div>
+          <h3>Study Material</h3>
+          <p>Subject-wise notes, formula sheets and topic PDFs for Class 11 and 12.</p>
+        </a>
+        <a class="tile" href="pyq.html">
+          <div class="tile-icon teal">&#128196;</div>
+          <h3>Previous Year Papers</h3>
+          <p>Past papers for JEE, NEET and MHT-CET, with solutions.</p>
+        </a>
+        <a class="tile" href="mock-test.html">
+          <div class="tile-icon amber">&#9200;</div>
+          <h3>Mock Tests</h3>
+          <p>Timed practice tests with an instant score and an answer key.</p>
+        </a>
+        <a class="tile" href="chatbot.html">
+          <div class="tile-icon">&#129302;</div>
+          <h3>AI Chatbot</h3>
+          <p>Ask a doubt in plain language and get an explanation straight away.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- Support features ---------- -->
+  <section class="section band">
+    <div class="container">
+      <div class="section-head">
+        <h2>Support beyond the syllabus</h2>
+        <p>The survey showed students also need guidance about what comes after Class 12.</p>
+      </div>
+
+      <div class="grid grid-4">
+        <a class="tile" href="career.html">
+          <div class="tile-icon teal">&#127891;</div>
+          <h3>Career Guidance</h3>
+          <p>Engineering, medical, defence, commerce and arts paths explained.</p>
+        </a>
+        <a class="tile" href="scholarships.html">
+          <div class="tile-icon amber">&#127942;</div>
+          <h3>Scholarships</h3>
+          <p>Central and Maharashtra schemes with eligibility and last dates.</p>
+        </a>
+        <a class="tile" href="student-dashboard.html">
+          <div class="tile-icon">&#128276;</div>
+          <h3>Notifications</h3>
+          <p>Exam dates, form deadlines and college notices in one feed.</p>
+        </a>
+        <a class="tile" href="feedback.html">
+          <div class="tile-icon teal">&#128172;</div>
+          <h3>Feedback</h3>
+          <p>Tell us what works and what should improve in the next version.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- About the project ---------- -->
+  <section class="section">
+    <div class="container grid grid-2" style="align-items:center;gap:40px">
+      <div>
+        <h2>Why we built this</h2>
+        <p class="mt-16">
+          Between classroom hours, most of our students were still hunting for
+          notes, past papers and practice tests across five different apps and
+          YouTube channels. We wanted everything a Moungiri student needs sitting
+          in one place, available the same way whether you're at the coaching
+          centre or at home.
+        </p>
+        <p class="mt-16">
+          This portal is that one place. Students get material and practice,
+          our faculty get a simple way to publish and track progress, and the
+          administrator gets one view of enrolments, fees and reports.
+        </p>
+        <a class="btn btn-primary mt-24" href="login.html?role=student">Open a student account</a>
+      </div>
+
+      <div class="grid" style="gap:14px">
+        <div class="card">
+          <h3>For students</h3>
+          <p>Material, papers, tests, doubt solving, attendance, fees and career information.</p>
+        </div>
+        <div class="card">
+          <h3>For faculty</h3>
+          <p>Upload material, create tests, mark attendance and watch how each student is doing.</p>
+        </div>
+        <div class="card">
+          <h3>For the owner or administrator</h3>
+          <p>Manage students, faculty, fees, receipts and reports from one dashboard.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ---------- Footer (repeated on every page) ---------- -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="index.html" style="color:#fff"><span class="brand-mark">MC</span> Moungiri</a>
+        <p style="margin-top:12px;font-size:.92rem">
+          The student portal for Moungiri Coachings StudyMate &mdash; notes, tests
+          and guidance for our JEE, NEET and MHT-CET batches in Ahilyanagar district.
+        </p>
+        <p class="small text-muted" style="margin-top:6px">
+          <!-- TODO: replace with the real address/landmark -->
+          &#128205; [Add exact address here], Ahilyanagar, Maharashtra
+        </p>
+      </div>
+      <div>
+        <h4>Study</h4>
+        <ul>
+          <li><a href="study-material.html">Study Material</a></li>
+          <li><a href="pyq.html">Previous Year Papers</a></li>
+          <li><a href="mock-test.html">Mock Tests</a></li>
+          <li><a href="chatbot.html">AI Chatbot</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Guidance</h4>
+        <ul>
+          <li><a href="career.html">Career Guidance</a></li>
+          <li><a href="scholarships.html">Scholarships</a></li>
+          <li><a href="feedback.html">Give feedback</a></li>
+          <li><a href="login.html">Sign in</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Sources</h4>
+        <ul>
+          <li><a href="https://ncert.nic.in" target="_blank" rel="noopener">NCERT</a></li>
+          <li><a href="https://nta.ac.in" target="_blank" rel="noopener">National Testing Agency</a></li>
+          <li><a href="https://diksha.gov.in" target="_blank" rel="noopener">DIKSHA</a></li>
+          <li><a href="https://swayam.gov.in" target="_blank" rel="noopener">SWAYAM</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Moungiri Coachings StudyMate &mdash; a frontend demo, not yet connected to a live server.</span>
+      <span>&copy; 2026 Moungiri Coachings StudyMate</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

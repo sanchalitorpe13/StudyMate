@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     Moungiri Coachings StudyMate — Faculty dashboard (Assignment 3, Screen 17.8)
+     Tabs: upload material, create test, mark attendance,
+     performance, send notification.
+     ============================================================ -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>
+    // Signed-out visitors go to login. Signed in but the wrong role for
+    // this dashboard? Send them to their own dashboard instead.
+    (function () {
+      var raw = localStorage.getItem('mc_user');
+      if (!raw) { window.location.replace('login.html'); return; }
+      var u; try { u = JSON.parse(raw); } catch (e) { window.location.replace('login.html'); return; }
+      if (u.role !== 'faculty') {
+        else if (u.role === 'student') window.location.replace('student-dashboard.html');
+      else if (u.role === 'admin') window.location.replace('admin-dashboard.html');
+      }
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Faculty dashboard — Moungiri Coachings StudyMate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="faculty" class="role-faculty">
+
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="flex" style="gap:10px">
+      <a class="brand" href="index.html"><span class="brand-mark">MC</span> Moungiri</a>
+      <span class="role-tag">Faculty panel</span>
+    </div>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Open menu">&#9776;</button>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="faculty-dashboard.html">Dashboard</a>
+      <a class="btn btn-ghost btn-sm" href="#" data-logout>Sign out</a>
+    </nav>
+  </div>
+</header>
+
+<div class="shell">
+  <aside class="sidebar">
+    <p class="sidebar-title">Teaching</p>
+    <a href="faculty-dashboard.html" class="active">&#128200; Dashboard</a>
+    <p class="small text-muted" style="padding:0 12px;margin-top:8px">
+      Attendance, material, quizzes and student performance are all in the
+      tabs on this page.
+    </p>
+    <div class="sidebar-user">
+      <strong data-user-name>Mrs. S. R. Patil</strong>
+      <small data-user-role>Faculty</small>
+      <button class="btn btn-ghost btn-sm mt-16" data-logout>Sign out</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <section class="welcome">
+      <h2>Good morning, <span data-first-name>Faculty</span>.</h2>
+      <p>You teach Physics to Class 11 and 12 &mdash; 8 students on your roll right now.</p>
+    </section>
+
+    <!-- Tab bar -->
+    <div class="tabs">
+      <button class="active" data-tab="tab-attendance">Mark attendance</button>
+      <button data-tab="tab-upload">Upload material</button>
+      <button data-tab="tab-test">Create a test</button>
+      <button data-tab="tab-perf">Student performance</button>
+      <button data-tab="tab-notify">Send a notification</button>
+    </div>
+
+    <!-- ---------- Mark attendance ---------- -->
+    <section class="tab-panel active" id="tab-attendance">
+      <div class="page-head">
+        <div>
+          <h2 style="font-size:1.3rem">Today's lecture</h2>
+          <p>Physics, Class 12, 11:00 to 12:00</p>
+        </div>
+        <button class="btn btn-primary" id="saveAttendance">Save attendance</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Roll no.</th><th>Name</th><th>Class</th><th>Mark</th></tr></thead>
+          <tbody id="markBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ---------- Upload material ---------- -->
+    <section class="tab-panel" id="tab-upload">
+      <h2 class="mb-16" style="font-size:1.3rem">Upload study material</h2>
+      <form class="card" id="uploadForm" style="max-width:600px">
+        <div class="field">
+          <label for="mTitle">Title</label>
+          <input type="text" id="mTitle" placeholder="Current Electricity — Full Notes" required>
+        </div>
+        <div class="grid grid-2" style="gap:14px">
+          <div class="field">
+            <label for="mClass">Class</label>
+            <select id="mClass"><option>11</option><option>12</option></select>
+          </div>
+          <div class="field">
+            <label for="mSubject">Subject</label>
+            <select id="mSubject"><option>Physics</option><option>Chemistry</option><option>Maths</option><option>Biology</option></select>
+          </div>
+        </div>
+        <div class="grid grid-2" style="gap:14px">
+          <div class="field">
+            <label for="mType">Type</label>
+            <select id="mType"><option>Notes</option><option>Formula Sheet</option><option>Topic PDF</option><option>MCQs</option></select>
+          </div>
+          <div class="field">
+            <label for="mChapter">Chapter</label>
+            <input type="text" id="mChapter" placeholder="Ch 3">
+          </div>
+        </div>
+        <div class="field">
+          <label for="mFile">File</label>
+          <input type="file" id="mFile" accept=".pdf,.doc,.docx">
+        </div>
+        <button class="btn btn-primary" type="submit">Upload</button>
+      </form>
+    </section>
+
+    <!-- ---------- Create a test: real quiz builder ---------- -->
+    <section class="tab-panel" id="tab-test">
+      <h2 class="mb-16" style="font-size:1.3rem">Create a quiz</h2>
+
+      <div class="card" style="max-width:720px">
+        <div class="grid grid-2" style="gap:14px">
+          <div class="field">
+            <label for="qzTitle">Quiz title</label>
+            <input type="text" id="qzTitle" placeholder="Unit Test 3 — Current Electricity">
+          </div>
+          <div class="field">
+            <label for="qzSubject">Subject</label>
+            <select id="qzSubject"><option>Physics</option><option>Chemistry</option><option>Maths</option><option>Biology</option></select>
+          </div>
+        </div>
+        <div class="grid grid-2" style="gap:14px">
+          <div class="field">
+            <label for="qzClass">Class</label>
+            <select id="qzClass"><option>11</option><option>12</option></select>
+          </div>
+          <div class="field">
+            <label for="qzDuration">Duration in minutes</label>
+            <input type="number" id="qzDuration" value="20" min="5" max="180">
+          </div>
+        </div>
+
+        <h3 class="mt-16 mb-16" style="font-size:1rem">Questions</h3>
+        <div id="qzQuestions"></div>
+        <button type="button" class="btn btn-ghost btn-sm" id="qzAddQ">+ Add question</button>
+
+        <div class="flex mt-24">
+          <button type="button" class="btn btn-ghost" id="qzSaveDraft">Save as draft</button>
+          <button type="button" class="btn btn-primary" id="qzPublish">Publish to class</button>
+        </div>
+        <p class="hint mt-16" id="qzMsg"></p>
+      </div>
+
+      <h3 class="mt-24 mb-16" style="font-size:1.1rem">Your quizzes</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Title</th><th>Subject</th><th>Class</th><th>Questions</th><th>Status</th><th>Attempts</th><th>Actions</th></tr></thead>
+          <tbody id="qzList"></tbody>
+        </table>
+      </div>
+
+      <!-- Leaderboard for whichever quiz was just opened, hidden until then -->
+      <div id="qzBoardWrap" class="hidden mt-24">
+        <h3 class="mb-16" style="font-size:1.1rem" id="qzBoardTitle">Leaderboard</h3>
+        <div class="table-wrap mb-24">
+          <table>
+            <thead><tr><th>Rank</th><th>Student</th><th>Score</th><th>Time taken</th><th>Tab switches</th><th>Status</th></tr></thead>
+            <tbody id="qzBoardBody"></tbody>
+          </table>
+        </div>
+        <div class="card">
+          <h3 style="font-size:1rem">Score distribution</h3>
+          <p class="small text-muted">Share of the class in each score band.</p>
+          <div class="chart" id="qzChart"></div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ---------- Student performance ---------- -->
+    <section class="tab-panel" id="tab-perf">
+      <h2 class="mb-16" style="font-size:1.3rem">Student performance</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Roll no.</th><th>Name</th><th>Target exam</th><th>Attendance</th><th>Average score</th><th>Status</th></tr></thead>
+          <tbody id="perfBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ---------- Send a notification ---------- -->
+    <section class="tab-panel" id="tab-notify">
+      <h2 class="mb-16" style="font-size:1.3rem">Send a notification</h2>
+      <form class="card" id="notifyForm" style="max-width:600px">
+        <div class="field">
+          <label for="nTo">Send to</label>
+          <select id="nTo"><option>All students</option><option>Class 11 only</option><option>Class 12 only</option></select>
+        </div>
+        <div class="field">
+          <label for="nTitle">Title</label>
+          <input type="text" id="nTitle" placeholder="Unit Test 3 on 28 September" required>
+        </div>
+        <div class="field">
+          <label for="nBody">Message</label>
+          <textarea id="nBody" placeholder="Write the message students will see."></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">Send</button>
+      </form>
+    </section>
+
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

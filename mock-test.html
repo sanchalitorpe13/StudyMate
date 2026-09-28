@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     Moungiri Coachings StudyMate — Mock Test (Assignment 3, Screen 17.5)
+     Three views inside one page: setup, test, result.
+     JavaScript shows one and hides the other two.
+     ============================================================ -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>
+    // Anyone not signed in is sent to the login page first.
+    if (!localStorage.getItem('mc_user')) { window.location.replace('login.html'); }
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mock Test — Moungiri Coachings StudyMate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="mockTest">
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">MC</span> Moungiri</a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Open menu">&#9776;</button>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="study-material.html">Study Material</a>
+      <a href="pyq.html">PYQs</a>
+      <a href="mock-test.html">Mock Tests</a>
+      <a href="career.html">Career</a>
+      <a href="scholarships.html">Scholarships</a>
+      <a class="btn btn-ghost btn-sm" href="student-dashboard.html">Dashboard</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container" style="padding-block:34px 60px">
+
+  <!-- ---------- View 1: setup ---------- -->
+  <section id="setupView">
+    <div class="page-head">
+      <div>
+        <h1 style="font-size:2rem">Mock Test</h1>
+        <p>Choose an exam and a difficulty level. You get one minute per question.</p>
+      </div>
+    </div>
+
+    <div class="card" style="max-width:560px">
+      <div class="field">
+        <label for="tExam">Exam</label>
+        <select id="tExam">
+          <option>JEE Main</option>
+          <option>JEE Advanced</option>
+          <option>NEET</option>
+          <option>MHT-CET (PCM)</option>
+          <option>MHT-CET (PCB)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="tSubject">Subject</label>
+        <select id="tSubject">
+          <option>Mixed (PCM / PCB)</option>
+          <option>Physics</option>
+          <option>Chemistry</option>
+          <option>Maths</option>
+          <option>Biology</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="tLevel">Difficulty</label>
+        <select id="tLevel">
+          <option>Easy</option>
+          <option selected>Moderate</option>
+          <option>Hard</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="tCount">Number of questions</label>
+        <select id="tCount">
+          <option value="5">5 questions &mdash; 5 minutes</option>
+          <option value="10" selected>10 questions &mdash; 10 minutes</option>
+        </select>
+      </div>
+      <button class="btn btn-primary btn-block" id="startBtn">Start the test</button>
+      <p class="hint mt-16">
+        There is no negative marking in this prototype. The timer submits the
+        paper automatically when it reaches zero.
+      </p>
+    </div>
+  </section>
+
+  <!-- ---------- View 2: the test itself ---------- -->
+  <section id="testView" class="hidden">
+    <div class="page-head">
+      <div>
+        <h1 style="font-size:1.6rem">Test in progress</h1>
+        <p id="testLabel"></p>
+      </div>
+      <div class="timer" id="timer">00:00</div>
+    </div>
+
+    <div class="test-layout">
+      <div class="card">
+        <small class="text-muted" id="qNumber"></small>
+        <h3 class="mt-16 mb-24" id="qText" style="font-size:1.12rem"></h3>
+
+        <div id="options"></div>
+
+        <div class="flex between mt-24">
+          <div class="flex">
+            <button class="btn btn-ghost btn-sm" id="prevBtn">Previous</button>
+            <button class="btn btn-ghost btn-sm" id="clearBtn">Clear answer</button>
+          </div>
+          <button class="btn btn-primary" id="nextBtn">Next</button>
+        </div>
+      </div>
+
+      <aside class="card">
+        <h3 style="font-size:1rem">Question palette</h3>
+        <p class="small mt-16 mb-16">Green means answered.</p>
+        <div class="palette" id="palette"></div>
+        <button class="btn btn-amber btn-block mt-24" id="submitBtn">Submit the test</button>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ---------- View 3: result ---------- -->
+  <section id="resultView" class="hidden">
+    <div class="page-head">
+      <div>
+        <h1 style="font-size:2rem">Your result</h1>
+        <p id="rVerdict"></p>
+      </div>
+      <div class="flex">
+        <button class="btn btn-primary" id="retryBtn">Take another test</button>
+        <a class="btn btn-ghost" href="study-material.html">Revise the notes</a>
+      </div>
+    </div>
+
+    <div class="grid grid-2 mb-24" style="align-items:start">
+      <div class="card text-center">
+        <div class="score-ring" id="scoreRing"><div id="scorePct">0%</div></div>
+        <p class="text-muted" style="margin-inline:auto">Score</p>
+      </div>
+      <div class="stat-cards" style="grid-template-columns:1fr;gap:14px">
+        <div class="stat-card"><small>Correct</small><b id="rRight">0</b></div>
+        <div class="stat-card"><small>Incorrect</small><b id="rWrong">0</b></div>
+        <div class="stat-card"><small>Not attempted</small><b id="rSkip">0</b></div>
+      </div>
+    </div>
+
+    <h2 class="mb-16" style="font-size:1.25rem">Answer key</h2>
+    <div id="review"></div>
+  </section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,617 @@
+/* ============================================================
+   StudyMate — shared stylesheet
+   Community Engagement Project (Assignments 1-4)
+   All pages of the site link to this single file.
+   ============================================================ */
+
+/* ---------- 1. Design tokens (colours, spacing, radius) ---------- */
+:root {
+  --ink:        #2b1315;   /* near-black with a wine undertone — headings */
+  --ink-soft:   #5c3638;   /* body text — warm brown-red, not pure grey   */
+  --muted:      #8d6a6b;   /* captions, helper text                       */
+
+  --primary:    #a11d2e;   /* brick crimson — buttons, links              */
+  --primary-dk: #7c1522;
+  --primary-lt: #fbe8e9;   /* tinted background for crimson elements      */
+
+  --teal:       #3f7d5c;   /* kept for "paid / present / correct" only —  */
+  --teal-lt:    #e6f2ea;   /* a small green so status reads at a glance   */
+  --amber:      #c17c1f;   /* muted gold — pending items, highlights      */
+  --amber-lt:   #f8ecd9;
+  --red:        #b3261e;   /* true alert red — errors, wrong answers      */
+  --red-lt:     #fbe6e4;
+
+  --bg:         #fbf3f1;   /* warm blush paper, not stock cream           */
+  --surface:    #fffbfa;   /* cards                                       */
+  --line:       #ecd7d3;   /* soft rose-grey border                       */
+
+  --radius:     12px;
+  --radius-sm:  8px;
+  --shadow:     0 1px 2px rgba(90,20,20,.06), 0 8px 22px rgba(90,20,20,.07);
+  --shadow-lg:  0 12px 36px rgba(90,20,20,.14);
+
+  --wrap:       1140px;    /* max content width                       */
+}
+
+/* ---------- 2. Base / reset ---------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--ink-soft);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  color: var(--ink);
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+h1 { font-size: clamp(1.9rem, 4vw, 2.9rem); }
+h2 { font-size: clamp(1.4rem, 2.6vw, 2rem); }
+h3 { font-size: 1.12rem; }
+
+p { max-width: 68ch; }
+
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+img { max-width: 100%; display: block; }
+
+ul { list-style: none; }
+
+/* Keyboard users must always be able to see where they are */
+:focus-visible {
+  outline: 3px solid var(--amber);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.container { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: 20px; }
+
+/* ---------- 3. Header and main navigation ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; height: 68px;
+}
+
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800; font-size: 1.22rem; color: var(--ink);
+  letter-spacing: -0.03em;
+}
+.brand:hover { text-decoration: none; }
+
+.role-tag {
+  font-size: .72rem; font-weight: 700; letter-spacing: .02em;
+  padding: 4px 10px; border-radius: 999px; margin-left: 2px;
+}
+.role-faculty .role-tag { background: #f8ecd9; color: #7c4f10; }
+.role-admin   .role-tag { background: #241514; color: #f0b8a8; }
+
+.brand-mark {
+  width: 34px; height: 34px; border-radius: 10px;
+  background: linear-gradient(140deg, var(--primary), #c9662f);
+  color: #fff; display: grid; place-items: center;
+  font-size: .95rem; font-weight: 800;
+}
+
+.nav { display: flex; align-items: center; gap: 4px; }
+
+.nav a {
+  padding: 8px 12px; border-radius: 8px;
+  color: var(--ink-soft); font-size: .94rem; font-weight: 500;
+}
+.nav a:hover { background: var(--primary-lt); color: var(--primary-dk); text-decoration: none; }
+.nav a.active { color: var(--primary-dk); background: var(--primary-lt); font-weight: 600; }
+
+/* Hamburger button — only visible on small screens */
+.nav-toggle {
+  display: none; background: none; border: 1px solid var(--line);
+  border-radius: 8px; padding: 8px 10px; cursor: pointer;
+  font-size: 1.1rem; color: var(--ink);
+}
+
+/* ---------- 4. Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 11px 20px; border-radius: 10px; border: 1px solid transparent;
+  font: inherit; font-weight: 600; font-size: .95rem;
+  cursor: pointer; transition: background .15s, box-shadow .15s, transform .08s;
+  white-space: nowrap;
+}
+.btn:hover { text-decoration: none; }
+.btn:active { transform: translateY(1px); }
+
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-dk); }
+
+.btn-accent { background: var(--teal); color: #fff; }
+.btn-accent:hover { background: #2f6248; }
+
+.btn-amber { background: var(--amber); color: #fff; }
+.btn-amber:hover { background: #9c6318; }
+
+.btn-ghost { background: var(--surface); color: var(--ink); border-color: var(--line); }
+.btn-ghost:hover { background: var(--primary-lt); border-color: var(--primary); color: var(--primary-dk); }
+
+.btn-danger { background: var(--red-lt); color: var(--red); }
+.btn-danger:hover { background: #f9d8d8; }
+
+.btn-sm { padding: 7px 13px; font-size: .84rem; border-radius: 8px; }
+.btn-block { width: 100%; }
+
+/* ---------- 5. Home page: hero ---------- */
+.hero {
+  background:
+    radial-gradient(900px 420px at 88% -10%, rgba(201,102,47,.22), transparent 60%),
+    linear-gradient(160deg, #3a0e14 0%, #7c1522 58%, #a11d2e 100%);
+  color: #fff; padding: 74px 0 86px;
+}
+
+.hero h1 { color: #fff; max-width: 15ch; }
+
+.hero-tagline {
+  display: inline-block; margin-bottom: 18px;
+  background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.24);
+  padding: 6px 14px; border-radius: 999px; font-size: .86rem; font-weight: 500;
+}
+
+.hero-sub {
+  color: #c9cfec; font-size: 1.06rem; margin-top: 16px; max-width: 56ch;
+}
+
+.role-buttons { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+
+/* Statistics strip that overlaps the bottom of the hero */
+.stat-strip {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  background: var(--line); border: 1px solid var(--line);
+  border-radius: var(--radius); overflow: hidden;
+  box-shadow: var(--shadow); margin-top: -46px; position: relative; z-index: 2;
+}
+.stat-strip div { background: var(--surface); padding: 22px 18px; text-align: center; }
+.stat-num {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.9rem; font-weight: 800; color: var(--primary); display: block;
+}
+.stat-strip small { color: var(--muted); font-size: .85rem; }
+
+/* ---------- 6. Sections and cards ---------- */
+.section { padding: 60px 0; }
+.section-head { margin-bottom: 30px; }
+.section-head p { color: var(--muted); margin-top: 8px; }
+
+.grid { display: grid; gap: 18px; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+.card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 22px;
+  box-shadow: var(--shadow);
+}
+.card h3 { margin-bottom: 7px; }
+.card p { color: var(--muted); font-size: .93rem; }
+
+/* Clickable feature/module tile */
+.tile {
+  display: block; background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow);
+  color: inherit; transition: border-color .15s, box-shadow .15s;
+}
+.tile:hover {
+  text-decoration: none; border-color: var(--primary);
+  box-shadow: var(--shadow-lg);
+}
+.tile h3 { margin-bottom: 6px; }
+.tile p { color: var(--muted); font-size: .9rem; }
+
+.tile-icon {
+  width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center;
+  font-size: 1.3rem; margin-bottom: 14px;
+  background: var(--primary-lt);
+}
+.tile-icon.teal  { background: var(--teal-lt); }
+.tile-icon.amber { background: var(--amber-lt); }
+
+/* Small coloured label */
+.chip {
+  display: inline-block; padding: 3px 10px; border-radius: 999px;
+  font-size: .76rem; font-weight: 600;
+  background: var(--primary-lt); color: var(--primary-dk);
+}
+.chip.teal  { background: var(--teal-lt);  color: #2c5f43; }
+.chip.amber { background: var(--amber-lt); color: #8a5814; }
+.chip.red   { background: var(--red-lt);   color: var(--red); }
+
+.band { background: var(--surface); border-block: 1px solid var(--line); }
+
+/* ---------- 7. Footer ---------- */
+.site-footer {
+  background: var(--ink); color: #aab2cf; padding: 50px 0 26px; margin-top: 60px;
+}
+.site-footer h4 { color: #fff; font-size: .98rem; margin-bottom: 12px; }
+.site-footer a { color: #aab2cf; font-size: .92rem; }
+.site-footer a:hover { color: #fff; }
+.site-footer li { margin-bottom: 7px; }
+.footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 34px; }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.12); margin-top: 34px; padding-top: 18px;
+  font-size: .86rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+}
+
+/* ---------- 8. Forms ---------- */
+.field { margin-bottom: 16px; }
+.field label {
+  display: block; font-size: .87rem; font-weight: 600;
+  color: var(--ink); margin-bottom: 6px;
+}
+
+input[type=text], input[type=email], input[type=password],
+input[type=number], input[type=date], select, textarea {
+  width: 100%; padding: 11px 13px;
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  font: inherit; font-size: .95rem; color: var(--ink);
+  background: var(--surface); transition: border-color .15s, box-shadow .15s;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none; border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-lt);
+}
+textarea { min-height: 96px; resize: vertical; }
+
+.hint { font-size: .83rem; color: var(--muted); }
+.error { color: var(--red); font-size: .85rem; margin-top: 6px; display: none; }
+.error.show { display: block; }
+
+/* Role picker on the login page */
+.role-picker { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 22px; }
+.role-picker input { position: absolute; opacity: 0; pointer-events: none; }
+.role-picker label {
+  display: block; text-align: center; padding: 14px 8px; cursor: pointer;
+  border: 1.5px solid var(--line); border-radius: var(--radius-sm);
+  font-size: .9rem; font-weight: 600; color: var(--ink-soft);
+  background: var(--surface); transition: all .15s;
+}
+.role-picker label span { display: block; font-size: 1.35rem; margin-bottom: 4px; }
+.role-picker input:checked + label {
+  border-color: var(--primary); background: var(--primary-lt); color: var(--primary-dk);
+}
+.role-picker input:focus-visible + label { outline: 3px solid var(--amber); outline-offset: 2px; }
+
+/* Centred auth card */
+.auth-wrap {
+  min-height: calc(100vh - 68px);
+  display: grid; place-items: center; padding: 40px 20px;
+}
+.auth-card {
+  width: 100%; max-width: 440px; background: var(--surface);
+  border: 1px solid var(--line); border-radius: 18px;
+  padding: 32px; box-shadow: var(--shadow-lg);
+}
+.demo-note {
+  margin-top: 18px; padding: 12px 14px; border-radius: var(--radius-sm);
+  background: var(--amber-lt); color: #7c4f10; font-size: .85rem;
+}
+
+/* Filter bar used on material / PYQ / scholarship pages */
+.filters {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px; align-items: end;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 18px; margin-bottom: 24px;
+}
+.filters .field { margin-bottom: 0; }
+
+/* ---------- 9. Dashboard shell (sidebar + content) ---------- */
+.shell { display: grid; grid-template-columns: 250px 1fr; min-height: calc(100vh - 68px); }
+
+.sidebar {
+  background: var(--ink); padding: 22px 14px; color: #aab2cf;
+}
+.sidebar-title {
+  font-size: .74rem; letter-spacing: .09em; text-transform: uppercase;
+  color: #6b769c; padding: 0 12px; margin: 18px 0 8px;
+}
+.sidebar-title:first-child { margin-top: 0; }
+.sidebar a {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px; border-radius: 9px;
+  color: #c3cae3; font-size: .92rem; font-weight: 500;
+}
+.sidebar a:hover { background: rgba(255,255,255,.08); color: #fff; text-decoration: none; }
+.sidebar a.active { background: var(--primary); color: #fff; }
+.sidebar-user {
+  border-top: 1px solid rgba(255,255,255,.12);
+  margin-top: 20px; padding: 16px 12px 0;
+}
+.sidebar-user strong { color: #fff; display: block; font-size: .93rem; }
+.sidebar-user small { color: #7b85a8; }
+
+.main { padding: 28px 30px 60px; min-width: 0; }
+.page-head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap; margin-bottom: 24px;
+}
+.page-head p { color: var(--muted); margin-top: 6px; }
+
+/* --- Role identity: Student keeps the default wine/crimson sidebar.
+   Faculty gets a warm olive-charcoal sidebar with a gold active state.
+   Admin gets a near-black sidebar with a crimson active state and a
+   left accent bar, so the three areas read as distinct spaces even
+   though they share the same shell layout. --- */
+.role-faculty .sidebar { background: #2a2013; }
+.role-faculty .sidebar a.active { background: var(--amber); color: #2a2013; }
+.role-faculty .sidebar-user { border-top-color: rgba(248,236,217,.16); }
+
+.role-admin .sidebar { background: #14100f; }
+.role-admin .sidebar a.active {
+  background: rgba(161,29,46,.22); color: #ffd9d0;
+  border-left: 3px solid var(--primary); padding-left: 9px;
+}
+.role-admin .sidebar-user { border-top-color: rgba(240,184,168,.14); }
+
+.role-faculty .welcome {
+  background: linear-gradient(120deg, #4a3510, #c17c1f 55%, #a11d2e 140%);
+}
+.role-admin .welcome {
+  background: linear-gradient(120deg, #14100f, #4a1620 55%, #a11d2e 140%);
+}
+
+/* Welcome banner at the top of a dashboard */
+.welcome {
+  background: linear-gradient(120deg, #5c1420, #a11d2e 55%, #c1743a 140%);
+  color: #fff; border-radius: var(--radius); padding: 26px 28px; margin-bottom: 22px;
+}
+.welcome h2 { color: #fff; }
+.welcome p { color: #ccd3f0; margin-top: 6px; }
+
+/* Stat card row */
+.stat-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 26px; }
+.stat-card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow);
+}
+.stat-card small { color: var(--muted); font-size: .84rem; font-weight: 500; }
+.stat-card b {
+  display: block; font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.75rem; font-weight: 800; color: var(--ink); margin: 4px 0 2px;
+}
+
+/* ---------- 10. Tables ---------- */
+.table-wrap {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); overflow-x: auto; box-shadow: var(--shadow);
+}
+table { width: 100%; border-collapse: collapse; min-width: 560px; }
+th, td { padding: 13px 16px; text-align: left; font-size: .92rem; border-bottom: 1px solid var(--line); }
+th {
+  background: #fafbff; color: var(--ink); font-weight: 600;
+  font-size: .83rem; position: sticky; top: 0;
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: #fafbff; }
+
+/* ---------- 11. Progress bars and CSS bar chart ---------- */
+.bar { height: 9px; background: var(--line); border-radius: 999px; overflow: hidden; min-width: 100px; }
+.bar > span { display: block; height: 100%; background: var(--teal); border-radius: 999px; }
+.bar > span.low { background: var(--red); }
+.bar > span.mid { background: var(--amber); }
+
+.chart {
+  display: flex; align-items: flex-end; gap: 16px;
+  height: 230px; padding: 16px 6px 0; overflow-x: auto;
+}
+.chart-col { flex: 1 0 52px; display: flex; flex-direction: column; align-items: center; height: 100%; }
+.chart-bar {
+  width: 100%; background: linear-gradient(180deg, var(--primary), #c1495a);
+  border-radius: 8px 8px 0 0; margin-top: auto; position: relative; min-height: 4px;
+}
+.chart-bar b {
+  position: absolute; top: -22px; left: 0; right: 0; text-align: center;
+  font-size: .8rem; color: var(--ink);
+}
+.chart-col small { margin-top: 8px; font-size: .78rem; color: var(--muted); text-align: center; }
+
+/* ---------- 12. Mock test ---------- */
+.test-layout { display: grid; grid-template-columns: 1fr 230px; gap: 20px; align-items: start; }
+
+.timer {
+  font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 1.3rem;
+  background: var(--primary-lt); color: var(--primary-dk);
+  padding: 8px 16px; border-radius: 10px;
+}
+.timer.warning { background: var(--red-lt); color: var(--red); }
+
+.option {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 14px 16px; margin-bottom: 10px; cursor: pointer;
+  border: 1.5px solid var(--line); border-radius: var(--radius-sm);
+  background: var(--surface); transition: all .12s;
+}
+.option:hover { border-color: var(--primary); background: var(--primary-lt); }
+.option.selected { border-color: var(--primary); background: var(--primary-lt); }
+.option input { margin-top: 5px; accent-color: var(--primary); }
+
+.palette { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.palette button {
+  aspect-ratio: 1; border: 1px solid var(--line); border-radius: 8px;
+  background: var(--surface); font: inherit; font-size: .85rem; font-weight: 600;
+  color: var(--ink-soft); cursor: pointer;
+}
+.palette button.answered { background: var(--teal); border-color: var(--teal); color: #fff; }
+.palette button.current  { outline: 2px solid var(--primary); outline-offset: 1px; }
+
+.score-ring {
+  width: 150px; height: 150px; border-radius: 50%; display: grid; place-items: center;
+  margin: 0 auto 18px; background: conic-gradient(var(--teal) var(--pct, 0%), var(--line) 0);
+}
+.score-ring div {
+  width: 118px; height: 118px; background: var(--surface); border-radius: 50%;
+  display: grid; place-items: center; font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.9rem; font-weight: 800; color: var(--ink);
+}
+
+/* ---------- 12B. Quiz lockdown (anti-cheat deterrents) ----------
+   Applied only while a student is actively taking a quiz. These are
+   deterrents, not real security — see the comment in script.js. */
+.quiz-armed { user-select: none; -webkit-user-select: none; }
+
+.watermark-layer {
+  position: absolute; inset: 0; overflow: hidden;
+  pointer-events: none; z-index: 3; opacity: .08;
+}
+.watermark-layer span {
+  position: absolute; white-space: nowrap; font-size: .74rem;
+  font-weight: 600; color: var(--ink); transform: rotate(-24deg);
+}
+
+.cheat-warning {
+  position: fixed; inset: 0; z-index: 999;
+  background: rgba(20,10,10,.82); color: #fff;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 24px;
+}
+.cheat-warning h2 { color: #fff; font-size: 1.4rem; max-width: 28ch; }
+.cheat-warning p { color: #e9c9c9; max-width: 40ch; margin-top: 10px; }
+
+.quiz-note {
+  background: var(--amber-lt); color: #7c4f10; border-radius: var(--radius-sm);
+  padding: 10px 14px; font-size: .85rem; margin-bottom: 16px;
+}
+
+/* ---------- 13. Chatbot ---------- */
+.chat-window {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  height: 60vh; min-height: 380px; overflow-y: auto; padding: 20px;
+  display: flex; flex-direction: column; gap: 12px; box-shadow: var(--shadow);
+}
+.msg { max-width: 78%; padding: 11px 15px; border-radius: 14px; font-size: .94rem; line-height: 1.55; }
+.msg.bot  { background: var(--primary-lt); color: var(--ink); border-bottom-left-radius: 4px; align-self: flex-start; }
+.msg.user { background: var(--primary); color: #fff; border-bottom-right-radius: 4px; align-self: flex-end; }
+.chat-form { display: flex; gap: 10px; margin-top: 14px; }
+.typing span {
+  display: inline-block; width: 7px; height: 7px; margin-right: 3px; border-radius: 50%;
+  background: var(--muted); animation: blink 1.2s infinite;
+}
+.typing span:nth-child(2) { animation-delay: .2s; }
+.typing span:nth-child(3) { animation-delay: .4s; }
+@keyframes blink { 0%, 60%, 100% { opacity: .25; } 30% { opacity: 1; } }
+
+.suggestions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.suggestions button {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+  padding: 7px 14px; font: inherit; font-size: .86rem; color: var(--ink-soft); cursor: pointer;
+}
+.suggestions button:hover { border-color: var(--primary); color: var(--primary-dk); background: var(--primary-lt); }
+
+/* ---------- 14. Fee receipt ---------- */
+.receipt {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 30px; max-width: 640px; box-shadow: var(--shadow);
+}
+.receipt-head {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  border-bottom: 2px solid var(--ink); padding-bottom: 16px; margin-bottom: 20px; gap: 16px;
+}
+.receipt-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px dashed var(--line); font-size: .94rem; }
+.receipt-total { font-weight: 700; color: var(--ink); font-size: 1.08rem; border-bottom: none; padding-top: 14px; }
+
+/* ---------- 15. Star rating (feedback page) ---------- */
+.rating-row {
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  padding: 14px 0; border-bottom: 1px solid var(--line); flex-wrap: wrap;
+}
+.rating-row:last-of-type { border-bottom: none; }
+.rating-row p { margin: 0; font-size: .95rem; color: var(--ink); }
+.stars { display: flex; flex-direction: row-reverse; gap: 4px; }
+.stars input { position: absolute; opacity: 0; pointer-events: none; }
+.stars label { font-size: 1.5rem; color: var(--line); cursor: pointer; line-height: 1; transition: color .1s; }
+.stars label:hover, .stars label:hover ~ label,
+.stars input:checked ~ label { color: var(--amber); }
+
+/* ---------- 16. Tabs (admin / faculty dashboards) ---------- */
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 22px; overflow-x: auto; }
+.tabs button {
+  background: none; border: none; border-bottom: 2px solid transparent;
+  padding: 11px 15px; font: inherit; font-size: .93rem; font-weight: 600;
+  color: var(--muted); cursor: pointer; white-space: nowrap;
+}
+.tabs button:hover { color: var(--ink); }
+.tabs button.active { color: var(--primary-dk); border-bottom-color: var(--primary); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ---------- 17. Small utilities ---------- */
+.flex      { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.between   { justify-content: space-between; }
+.mt-0  { margin-top: 0; }
+.mt-16 { margin-top: 16px; }
+.mt-24 { margin-top: 24px; }
+.mb-16 { margin-bottom: 16px; }
+.mb-24 { margin-bottom: 24px; }
+.text-muted { color: var(--muted); }
+.text-center { text-align: center; }
+.small { font-size: .87rem; }
+.hidden { display: none !important; }
+
+/* ---------- 18. Responsive rules ---------- */
+@media (max-width: 960px) {
+  .grid-4, .stat-cards { grid-template-columns: repeat(2, 1fr); }
+  .stat-strip { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: repeat(2, 1fr); }
+  .test-layout { grid-template-columns: 1fr; }
+  .shell { grid-template-columns: 1fr; }
+  .sidebar { display: flex; gap: 6px; overflow-x: auto; padding: 12px; }
+  .sidebar a { white-space: nowrap; }
+  .sidebar-title, .sidebar-user { display: none; }
+  .main { padding: 22px 18px 50px; }
+}
+
+@media (max-width: 760px) {
+  /* Mobile navigation: hidden until the hamburger is pressed */
+  .nav {
+    display: none; position: absolute; top: 68px; left: 0; right: 0;
+    flex-direction: column; align-items: stretch;
+    background: var(--surface); border-bottom: 1px solid var(--line);
+    padding: 10px 16px 16px; box-shadow: var(--shadow-lg);
+  }
+  .nav.open { display: flex; }
+  .nav-toggle { display: block; }
+  .grid-2, .grid-3, .grid-4, .stat-cards { grid-template-columns: 1fr; }
+  .role-picker { grid-template-columns: 1fr; }
+  .hero { padding: 50px 0 70px; }
+  .section { padding: 44px 0; }
+  .msg { max-width: 90%; }
+}
+
+/* ---------- 19. Motion and print preferences ---------- */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}
+
+@media print {
+  .site-header, .site-footer, .sidebar, .no-print { display: none !important; }
+  body { background: #fff; }
+  .shell { grid-template-columns: 1fr; }
+  .receipt { border: 1px solid #999; box-shadow: none; max-width: 100%; }
+}

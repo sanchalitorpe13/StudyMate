@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     Moungiri Coachings StudyMate — Feedback
+     The nine statements come from the usability testing form in
+     Assignment 3, section 18.
+     ============================================================ -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>
+    // Anyone not signed in is sent to the login page first.
+    if (!localStorage.getItem('mc_user')) { window.location.replace('login.html'); }
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Feedback — Moungiri Coachings StudyMate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="feedback">
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">MC</span> Moungiri</a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Open menu">&#9776;</button>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="study-material.html">Study Material</a>
+      <a href="pyq.html">PYQs</a>
+      <a href="mock-test.html">Mock Tests</a>
+      <a href="career.html">Career</a>
+      <a href="scholarships.html">Scholarships</a>
+      <a class="btn btn-ghost btn-sm" href="student-dashboard.html">Dashboard</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container" style="padding-block:34px 60px;max-width:780px">
+
+  <div class="page-head">
+    <div>
+      <h1 style="font-size:2rem">Tell us how Moungiri Coachings StudyMate worked for you</h1>
+      <p>Nine quick ratings and two open questions. It takes about two minutes.</p>
+    </div>
+  </div>
+
+  <!-- ---------- Thank-you panel, shown after submitting ---------- -->
+  <div class="card hidden" id="thanks">
+    <h2>Thank you.</h2>
+    <p class="mt-16">
+      Your ratings have been recorded for the project report. Your average rating
+      was <strong id="avgScore">—</strong>.
+    </p>
+    <p class="mt-16">
+      Responses like yours decide what gets built next, so the open comments
+      matter as much as the stars.
+    </p>
+    <div class="flex mt-24">
+      <a class="btn btn-primary" href="index.html">Back to home</a>
+      <a class="btn btn-ghost" href="study-material.html">Keep studying</a>
+    </div>
+  </div>
+
+  <!-- ---------- The form ---------- -->
+  <form id="feedbackForm">
+
+    <section class="card mb-24">
+      <h3>Rate each statement out of 5</h3>
+      <p class="mb-16">1 star means you disagree, 5 stars means you fully agree.</p>
+
+      <!-- Each group is reversed in CSS so that hovering a star fills
+           the ones to its left. The values are still 1 to 5. -->
+      <div class="rating-row">
+        <p>The website was easy to understand</p>
+        <div class="stars">
+          <input type="radio" name="q1" id="q1-5" value="5"><label for="q1-5">&#9733;</label>
+          <input type="radio" name="q1" id="q1-4" value="4"><label for="q1-4">&#9733;</label>
+          <input type="radio" name="q1" id="q1-3" value="3"><label for="q1-3">&#9733;</label>
+          <input type="radio" name="q1" id="q1-2" value="2"><label for="q1-2">&#9733;</label>
+          <input type="radio" name="q1" id="q1-1" value="1"><label for="q1-1">&#9733;</label>
+        </div>
+      </div>
+
+      <div class="rating-row">
+        <p>Navigation was simple</p>
+        <div class="stars">
+          <input type="radio" name="q2" id="q2-5" value="5"><label for="q2-5">&#9733;</label>
+          <input type="radio" name="q2" id="q2-4" value="4"><label for="q2-4">&#9733;</label>
+          <input type="radio" name="q2" id="q2-3" value="3"><label for="q2-3">&#9733;</label>
+          <input type="radio" name="q2" id="q2-2" value="2"><label for="q2-2">&#9733;</label>
+          <input type="radio" name="q2" id="q2-1" value="1"><label for="q2-1">&#9733;</label>
+        </div>
+      </div>
+
+      <div class="rating-row">
+        <p>Study materials were easy to find</p>
+        <div class="stars">
+          <input type="radio" name="q3" id="q3-5" value="5"><label for="q3-5">&#9733;</label>
+          <input type="radio" name="q3" id="q3-4" value="4"><label for="q3-4">&#9733;</label>
+          <input type="radio" name="q3" id="q3-3" value="3"><label for="q3-3">&#9733;</label>
+          <input type="radio" name="q3" id="q3-2" value="2"><label for="q3-2">&#9733;</label>
+          <input type="radio" name="q3" id="q3-1" value="1"><label for="q3-1">&#9733;</label>
+        </div>
+      </div>
+
+      <div class="rating-row">
+        <p>The PYQs and mock tests were useful</p>
+        <div class="stars">
+          <input type="radio" name="q4" id="q4-5" value="5"><label for="q4-5">&#9733;</label>
+          <input type="radio" name="q4" id="q4-4" value="4"><label for="q4-4">&#9733;</label>
+          <input type="radio" name="q4" id="q4-3" value="3"><label for="q4-3">&#9733;</label>
+          <input type="radio" name="q4" id="q4-2" value="2"><label for="q4-2">&#9733;</label>
+          <input type="radio" name="q4" id="q4-1" value="1"><label for="q4-1">&#9733;</label>
+        </div>
+      </div>
+
+      <div class="rating-row">
+        <p>The AI chatbot was helpful</p>
+        <div class="stars">
+          <input type="radio" name="q5" id="q5-5" value="5"><label for="q5-5">&#9733;</label>
+          <input type="radio" name="q5" id="q5-4" value="4"><label for="q5-4">&#9733;</label>
+          <input type="radio" name="q5" id="q5-3" value="3"><label for="q5-3">&#9733;</label>
+          <input type="radio" name="q5" id="q5-2" value="2"><label for="q5-2">&#9733;</label>
+          <input type="radio" name="q5" id="q5-1" value="1"><label for="q5-1">&#9733;</label>
+        </div>
+      </div>
+
+      <div class="rating-row">
+        <p>Career guidance was useful</p>
+        <div class="stars">
+          <input type="radio" name="q6" id="q6-5" value="5"><label for="q6-5">&#9733;</label>
+          <input type="radio" name="q6" id="q6-4" value="4"><label for="q6-4">&#9733;</label>
+          <input type="radio" name="q6" id="q6-3" value="3"><label for="q6-3">&#9733;</label>
+          <input type="radio" name="q6" id="q6-2" value="2"><label for="q6-2">&#9733;</label>
+          <input type="radio" name="q6" id="q6-1" value="1"><label for="q6-1">&#9733;</label>
+        </div>
+      </div>
+
+      <div class="rating-row">
+        <p>Attendance and fees were easy to use</p>
+        <div class="stars">
+          <input type="radio" name="q7" id="q7-5" value="5"><label for="q7-5">&#9733;</label>
+          <input type="radio" name="q7" id="q7-4" value="4"><label for="q7-4">&#9733;</label>
+          <input type="radio" name="q7" id="q7-3" value="3"><label for="q7-3">&#9733;</label>
+          <input type="radio" name="q7" id="q7-2" value="2"><label for="q7-2">&#9733;</label>
+          <input type="radio" name="q7" id="q7-1" value="1"><label for="q7-1">&#9733;</label>
+        </div>
+      </div>
+
+      <div class="rating-row">
+        <p>I would use this platform for my preparation</p>
+        <div class="stars">
+          <input type="radio" name="q8" id="q8-5" value="5"><label for="q8-5">&#9733;</label>
+          <input type="radio" name="q8" id="q8-4" value="4"><label for="q8-4">&#9733;</label>
+          <input type="radio" name="q8" id="q8-3" value="3"><label for="q8-3">&#9733;</label>
+          <input type="radio" name="q8" id="q8-2" value="2"><label for="q8-2">&#9733;</label>
+          <input type="radio" name="q8" id="q8-1" value="1"><label for="q8-1">&#9733;</label>
+        </div>
+      </div>
+
+      <div class="rating-row">
+        <p>I would recommend it to a friend</p>
+        <div class="stars">
+          <input type="radio" name="q9" id="q9-5" value="5"><label for="q9-5">&#9733;</label>
+          <input type="radio" name="q9" id="q9-4" value="4"><label for="q9-4">&#9733;</label>
+          <input type="radio" name="q9" id="q9-3" value="3"><label for="q9-3">&#9733;</label>
+          <input type="radio" name="q9" id="q9-2" value="2"><label for="q9-2">&#9733;</label>
+          <input type="radio" name="q9" id="q9-1" value="1"><label for="q9-1">&#9733;</label>
+        </div>
+      </div>
+    </section>
+
+    <section class="card mb-24">
+      <h3 class="mb-16">In your own words</h3>
+      <div class="field">
+        <label for="liked">What did you like most?</label>
+        <textarea id="liked" placeholder="The part that helped you the most."></textarea>
+      </div>
+      <div class="field">
+        <label for="hard">What was difficult or confusing?</label>
+        <textarea id="hard" placeholder="Anything you could not find, or a screen that did not make sense."></textarea>
+      </div>
+      <div class="field">
+        <label for="add">Which feature should we add next?</label>
+        <textarea id="add" placeholder="For example: video lectures, a Marathi version, a mobile app."></textarea>
+      </div>
+      <div class="field">
+        <label for="who">Your class and stream (optional)</label>
+        <input type="text" id="who" placeholder="Class 12, PCB">
+      </div>
+    </section>
+
+    <span class="error" id="fbError"></span>
+    <button class="btn btn-primary" type="submit">Send feedback</button>
+  </form>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom" style="border:none;margin:0;padding:0">
+      <span>Moungiri Coachings StudyMate &mdash; a frontend demo, not yet connected to a live server.</span>
+      <span><a href="index.html">Back to home</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

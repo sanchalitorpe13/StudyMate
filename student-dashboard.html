@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     Moungiri Coachings StudyMate — Student dashboard (Assignment 3, Screen 17.3)
+     ============================================================ -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>
+    // Signed-out visitors go to login. Signed in but the wrong role for
+    // this dashboard? Send them to their own dashboard instead.
+    (function () {
+      var raw = localStorage.getItem('mc_user');
+      if (!raw) { window.location.replace('login.html'); return; }
+      var u; try { u = JSON.parse(raw); } catch (e) { window.location.replace('login.html'); return; }
+      if (u.role !== 'student') {
+        else if (u.role === 'faculty') window.location.replace('faculty-dashboard.html');
+      else if (u.role === 'admin') window.location.replace('admin-dashboard.html');
+      }
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student dashboard — Moungiri Coachings StudyMate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="studentDashboard" class="role-student">
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">MC</span> Moungiri</a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Open menu">&#9776;</button>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="student-dashboard.html">Dashboard</a>
+      <a href="feedback.html">Feedback</a>
+      <a class="btn btn-ghost btn-sm" href="#" data-logout>Sign out</a>
+    </nav>
+  </div>
+</header>
+
+<div class="shell">
+
+  <!-- ---------- Student sidebar ---------- -->
+  <aside class="sidebar">
+    <p class="sidebar-title">Study</p>
+    <a href="student-dashboard.html">&#128200; Dashboard</a>
+    <a href="study-material.html">&#128218; Study Material</a>
+    <a href="pyq.html">&#128196; Previous Year Papers</a>
+    <a href="mock-test.html">&#9200; Mock Tests</a>
+    <a href="quizzes.html">&#128221; Quizzes</a>
+    <a href="chatbot.html">&#129302; AI Chatbot</a>
+
+    <p class="sidebar-title">Guidance</p>
+    <a href="career.html">&#127891; Career Guidance</a>
+    <a href="scholarships.html">&#127942; Scholarships</a>
+
+    <p class="sidebar-title">My records</p>
+    <a href="attendance.html">&#128197; Attendance</a>
+    <a href="fees.html">&#128179; Fees &amp; Receipt</a>
+    <a href="feedback.html">&#128172; Feedback</a>
+
+    <div class="sidebar-user">
+      <strong data-user-name>Prerna Shinde</strong>
+      <small data-user-role>Student</small>
+      <button class="btn btn-ghost btn-sm mt-16" data-logout>Sign out</button>
+    </div>
+  </aside>
+
+  <!-- ---------- Main content ---------- -->
+  <main class="main">
+
+    <section class="welcome">
+      <h2>Welcome back, <span data-first-name>Prerna</span>.</h2>
+      <p>You're in Class 12 (PCB), preparing for NEET. 213 days left.</p>
+    </section>
+
+    <!-- Quick statistics -->
+    <div class="stat-cards">
+      <div class="stat-card">
+        <small>Attendance</small>
+        <b id="attValue">—</b>
+        <small class="text-muted">75% is the requirement</small>
+      </div>
+      <div class="stat-card">
+        <small>Fees</small>
+        <b id="feeValue">—</b>
+        <small class="text-muted" id="feeCaption">&nbsp;</small>
+      </div>
+      <div class="stat-card">
+        <small>Latest test score</small>
+        <b id="scoreValue">—</b>
+        <small class="text-muted">Test 5, Physics and Chemistry</small>
+      </div>
+      <div class="stat-card">
+        <small>Notifications</small>
+        <b id="notifValue">—</b>
+        <small class="text-muted">Unread updates</small>
+      </div>
+    </div>
+
+    <!-- Module tiles -->
+    <h2 class="mb-16" style="font-size:1.25rem">Jump back in</h2>
+    <div class="grid grid-4 mb-24">
+      <a class="tile" href="study-material.html"><div class="tile-icon">&#128218;</div><h3>Study Material</h3><p>Notes, formula sheets, topic PDFs.</p></a>
+      <a class="tile" href="pyq.html"><div class="tile-icon teal">&#128196;</div><h3>PYQs</h3><p>Papers from 2023 onwards.</p></a>
+      <a class="tile" href="mock-test.html"><div class="tile-icon amber">&#9200;</div><h3>Mock Tests</h3><p>Timed practice with a score.</p></a>
+      <a class="tile" href="quizzes.html"><div class="tile-icon amber">&#128221;</div><h3>Quizzes</h3><p>Quizzes your faculty has published.</p></a>
+      <a class="tile" href="chatbot.html"><div class="tile-icon">&#129302;</div><h3>AI Chatbot</h3><p>Ask a doubt any time.</p></a>
+      <a class="tile" href="career.html"><div class="tile-icon teal">&#127891;</div><h3>Career Guidance</h3><p>Paths after Class 12.</p></a>
+      <a class="tile" href="scholarships.html"><div class="tile-icon amber">&#127942;</div><h3>Scholarships</h3><p>Schemes you can apply for.</p></a>
+      <a class="tile" href="attendance.html"><div class="tile-icon">&#128197;</div><h3>Attendance</h3><p>Subject-wise record.</p></a>
+      <a class="tile" href="fees.html"><div class="tile-icon teal">&#128179;</div><h3>Fees</h3><p>Dues and receipts.</p></a>
+    </div>
+
+    <!-- Performance chart and notifications -->
+    <div class="grid grid-2">
+      <section class="card">
+        <h3>Performance across the last five tests</h3>
+        <p>Marks out of 100.</p>
+        <div class="chart" id="scoreChart"></div>
+      </section>
+
+      <section class="card">
+        <h3>Notifications</h3>
+        <p>Exam, college and fee updates.</p>
+        <ul id="notifList" class="mt-16"></ul>
+      </section>
+    </div>
+
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

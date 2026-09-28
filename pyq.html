@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     Moungiri Coachings StudyMate — Previous Year Question Papers
+     ============================================================ -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>
+    // Anyone not signed in is sent to the login page first.
+    if (!localStorage.getItem('mc_user')) { window.location.replace('login.html'); }
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Previous Year Papers — Moungiri Coachings StudyMate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="pyq">
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">MC</span> Moungiri</a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Open menu">&#9776;</button>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="study-material.html">Study Material</a>
+      <a href="pyq.html">PYQs</a>
+      <a href="mock-test.html">Mock Tests</a>
+      <a href="career.html">Career</a>
+      <a href="scholarships.html">Scholarships</a>
+      <a class="btn btn-ghost btn-sm" href="student-dashboard.html">Dashboard</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container" style="padding-block:34px 60px">
+
+  <div class="page-head">
+    <div>
+      <h1 style="font-size:2rem">Previous Year Question Papers</h1>
+      <p>Solve one full paper every week. It is the fastest way to learn the pattern of an exam.</p>
+    </div>
+    <a class="btn btn-primary" href="mock-test.html">Take a timed mock test</a>
+  </div>
+
+  <div class="filters">
+    <div class="field">
+      <label for="pExam">Exam</label>
+      <select id="pExam">
+        <option value="">All exams</option>
+        <option>JEE</option>
+        <option>NEET</option>
+        <option>MHT-CET</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="pYear">Year</label>
+      <select id="pYear"><option value="">All years</option></select>
+    </div>
+  </div>
+
+  <p class="text-muted small mb-16" id="pyqCount"></p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Paper</th><th>Exam</th><th>Year</th><th>Subjects</th>
+          <th>Solutions</th><th>Size</th><th>File</th>
+        </tr>
+      </thead>
+      <tbody id="pyqBody"></tbody>
+    </table>
+  </div>
+
+  <div class="card mt-24">
+    <h3>How to use a past paper</h3>
+    <p class="mt-16">
+      Sit for the full duration in one go, without notes. Mark the questions you
+      guessed. Afterwards, spend more time on those than on the ones you got
+      wrong outright — a lucky guess hides a gap that will cost you in the real exam.
+    </p>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom" style="border:none;margin:0;padding:0">
+      <span>Moungiri Coachings StudyMate &mdash; a frontend demo, not yet connected to a live server.</span>
+      <span><a href="index.html">Back to home</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

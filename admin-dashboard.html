@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     Moungiri Coachings StudyMate — Owner / Admin dashboard (Assignment 3, Screen 17.9)
+     Tabs: students, faculty, material, fees and receipts, reports.
+     ============================================================ -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>
+    // Signed-out visitors go to login. Signed in but the wrong role for
+    // this dashboard? Send them to their own dashboard instead.
+    (function () {
+      var raw = localStorage.getItem('mc_user');
+      if (!raw) { window.location.replace('login.html'); return; }
+      var u; try { u = JSON.parse(raw); } catch (e) { window.location.replace('login.html'); return; }
+      if (u.role !== 'admin') {
+        else if (u.role === 'student') window.location.replace('student-dashboard.html');
+      else if (u.role === 'faculty') window.location.replace('faculty-dashboard.html');
+      }
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Owner dashboard — Moungiri Coachings StudyMate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="admin" class="role-admin">
+
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="flex" style="gap:10px">
+      <a class="brand" href="index.html"><span class="brand-mark">MC</span> Moungiri</a>
+      <span class="role-tag">Owner panel</span>
+    </div>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Open menu">&#9776;</button>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="admin-dashboard.html">Dashboard</a>
+      <a class="btn btn-ghost btn-sm" href="#" data-logout>Sign out</a>
+    </nav>
+  </div>
+</header>
+
+<div class="shell">
+  <aside class="sidebar">
+    <p class="sidebar-title">Manage</p>
+    <a href="admin-dashboard.html" class="active">&#128202; Dashboard</a>
+    <p class="small text-muted" style="padding:0 12px;margin-top:8px">
+      Students, faculty, material, fees, quizzes and reports are all in the
+      tabs on this page.
+    </p>
+    <div class="sidebar-user">
+      <strong data-user-name>Owner</strong>
+      <small data-user-role>Owner / Admin</small>
+      <button class="btn btn-ghost btn-sm mt-16" data-logout>Sign out</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <section class="welcome">
+      <h2>Owner dashboard</h2>
+      <p>Students, faculty, material, fees and reports for Moungiri Coachings StudyMate, Ahilyanagar.</p>
+    </section>
+
+    <div class="stat-cards">
+      <div class="stat-card"><small>Students</small><b id="aStudents">—</b><small class="text-muted">Class 11 and 12</small></div>
+      <div class="stat-card"><small>Faculty</small><b id="aFaculty">—</b><small class="text-muted">Across four subjects</small></div>
+      <div class="stat-card"><small>Study material</small><b id="aMaterials">—</b><small class="text-muted">Files published</small></div>
+      <div class="stat-card"><small>Fees pending</small><b id="aPending">—</b><small class="text-muted">Students with dues</small></div>
+    </div>
+
+    <div class="stat-cards">
+      <div class="stat-card"><small>Faculty present today</small><b id="aFacPresent">—</b><small class="text-muted" id="aFacPresentNote">&nbsp;</small></div>
+      <div class="stat-card"><small>Students present today</small><b id="aStuPresent">—</b><small class="text-muted">Attendance &ge; 75%</small></div>
+      <div class="stat-card"><small>Students absent today</small><b id="aStuAbsent">—</b><small class="text-muted">Attendance below 75%</small></div>
+      <div class="stat-card"><small>Quizzes published</small><b id="aQuizzes">—</b><small class="text-muted">Across all faculty</small></div>
+    </div>
+
+    <div class="tabs">
+      <button class="active" data-tab="tab-students">Students</button>
+      <button data-tab="tab-faculty">Faculty</button>
+      <button data-tab="tab-material">Material</button>
+      <button data-tab="tab-fees">Fees &amp; receipts</button>
+      <button data-tab="tab-quizzes">Quizzes</button>
+      <button data-tab="tab-reports">Reports</button>
+    </div>
+
+    <!-- ---------- Students ---------- -->
+    <section class="tab-panel active" id="tab-students">
+      <div class="page-head">
+        <h2 style="font-size:1.3rem">Manage students</h2>
+      </div>
+
+      <form class="card mb-24" id="addStudentForm">
+        <h3 class="mb-16" style="font-size:1rem">Add a student</h3>
+        <div class="grid grid-4" style="gap:14px;align-items:end">
+          <div class="field"><label for="nsName">Name</label><input type="text" id="nsName" placeholder="Full name" required></div>
+          <div class="field"><label for="nsRoll">Roll no.</label><input type="text" id="nsRoll" placeholder="12A-14"></div>
+          <div class="field"><label for="nsClass">Class</label><select id="nsClass"><option>11</option><option>12</option></select></div>
+          <button class="btn btn-primary" type="submit">Add student</button>
+        </div>
+      </form>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Roll no.</th><th>Name</th><th>Class</th><th>Stream</th><th>Target exam</th><th>Fees</th><th>Actions</th></tr></thead>
+          <tbody id="sBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ---------- Faculty ---------- -->
+    <section class="tab-panel" id="tab-faculty">
+      <div class="page-head">
+        <h2 style="font-size:1.3rem">Manage faculty</h2>
+        <button class="btn btn-primary" data-demo="No database yet, so a new faculty entry won't actually save.">Add faculty</button>
+      </div>
+      <div class="table-wrap mb-24">
+        <table>
+          <thead><tr><th>ID</th><th>Name</th><th>Subject</th><th>Classes</th><th>Phone</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="fBody"></tbody>
+        </table>
+      </div>
+
+      <div class="page-head">
+        <h3 style="font-size:1.1rem">Today's faculty attendance</h3>
+        <button class="btn btn-primary btn-sm" id="saveFacAttendance">Save</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Name</th><th>Subject</th><th>Mark</th></tr></thead>
+          <tbody id="facAttBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ---------- Material ---------- -->
+    <section class="tab-panel" id="tab-material">
+      <div class="page-head">
+        <h2 style="font-size:1.3rem">Published material</h2>
+        <a class="btn btn-primary" href="faculty-dashboard.html">Upload new material</a>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Title</th><th>Class</th><th>Subject</th><th>Type</th><th>Size</th><th>Actions</th></tr></thead>
+          <tbody id="mBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ---------- Fees ---------- -->
+    <section class="tab-panel" id="tab-fees">
+      <div class="page-head">
+        <h2 style="font-size:1.3rem">Fees and receipts</h2>
+        <button class="btn btn-ghost" data-demo="Export isn't built yet — on the list though.">Export</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Roll no.</th><th>Name</th><th>Total</th><th>Paid</th><th>Balance</th><th>Receipt</th><th>Action</th></tr></thead>
+          <tbody id="feeBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ---------- Quizzes ---------- -->
+    <section class="tab-panel" id="tab-quizzes">
+      <div class="page-head">
+        <h2 style="font-size:1.3rem">All quizzes</h2>
+        <p class="hint" style="margin:0">Across every faculty member, this browser only.</p>
+      </div>
+      <div class="table-wrap mb-24">
+        <table>
+          <thead><tr><th>Title</th><th>Created by</th><th>Subject</th><th>Class</th><th>Status</th><th>Attempts</th><th>Action</th></tr></thead>
+          <tbody id="qAdminBody"></tbody>
+        </table>
+      </div>
+      <div id="qAdminBoardWrap" class="hidden">
+        <h3 class="mb-16" style="font-size:1.1rem" id="qAdminBoardTitle">Leaderboard</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Rank</th><th>Student</th><th>Score</th><th>Time taken</th><th>Tab switches</th><th>Status</th></tr></thead>
+            <tbody id="qAdminBoardBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- Reports ---------- -->
+    <section class="tab-panel" id="tab-reports">
+      <h2 class="mb-16" style="font-size:1.3rem">Reports</h2>
+
+      <div class="stat-cards mb-24">
+        <div class="stat-card"><small>Average attendance</small><b id="repAtt">—</b></div>
+        <div class="stat-card"><small>Average test score</small><b id="repScore">—</b></div>
+        <div class="stat-card"><small>Fees collected</small><b id="repCollected">—</b></div>
+        <div class="stat-card"><small>Fees outstanding</small><b id="repDue">—</b></div>
+      </div>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Average score by student</h3>
+          <p>Marks out of 100 across all tests this term.</p>
+          <div class="chart" id="repChart"></div>
+        </div>
+        <div class="card">
+          <h3>Fees: collected vs outstanding</h3>
+          <p>Total across all students, in rupees.</p>
+          <div class="chart" id="repFeeChart"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

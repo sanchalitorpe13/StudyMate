@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     Moungiri Coachings StudyMate — Login (Assignment 3, Screen 17.2)
+     Role-based sign in. No server: the role is stored in
+     localStorage and the browser is sent to the right dashboard.
+     ============================================================ -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in — Moungiri Coachings StudyMate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="login">
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">MC</span> Moungiri</a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Open menu">&#9776;</button>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="study-material.html">Study Material</a>
+      <a href="pyq.html">PYQs</a>
+      <a href="mock-test.html">Mock Tests</a>
+      <a href="career.html">Career</a>
+      <a href="scholarships.html">Scholarships</a>
+    </nav>
+  </div>
+</header>
+
+<main class="auth-wrap">
+  <div class="auth-card">
+    <h1 style="font-size:1.6rem">Sign in to Moungiri Coachings StudyMate</h1>
+    <p class="hint mt-16 mb-24">Choose your role, then enter your email and password.</p>
+
+    <form id="loginForm" novalidate>
+
+      <!-- Role selector: Student / Faculty / Owner-Admin -->
+      <fieldset style="border:none">
+        <legend class="field" style="font-size:.87rem;font-weight:600;color:var(--ink);margin-bottom:6px">I am signing in as</legend>
+        <div class="role-picker">
+          <input type="radio" name="role" id="role-student" value="student" checked>
+          <label for="role-student"><span>&#127891;</span> Student</label>
+
+          <input type="radio" name="role" id="role-faculty" value="faculty">
+          <label for="role-faculty"><span>&#128218;</span> Faculty</label>
+
+          <input type="radio" name="role" id="role-admin" value="admin">
+          <label for="role-admin"><span>&#128188;</span> Owner / Admin</label>
+        </div>
+      </fieldset>
+
+      <div class="field">
+        <label for="email">Email address</label>
+        <input type="email" id="email" placeholder="prerna@studymate.in" autocomplete="username">
+        <span class="error" id="emailError">Enter a valid email address, for example name@example.com.</span>
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="At least 6 characters" autocomplete="current-password">
+        <span class="error" id="passError">The password must be at least 6 characters long.</span>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+      <button type="button" class="btn btn-ghost btn-block mt-16" id="registerBtn">Create an account</button>
+    </form>
+
+    <p class="demo-note">
+      This is a frontend demo. Any email address and a password of six or
+      more characters will sign you in, so every dashboard can be shown
+      without a live server behind it.
+    </p>
+  </div>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

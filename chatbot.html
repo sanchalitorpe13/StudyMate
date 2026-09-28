@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     Moungiri Coachings StudyMate — AI Chatbot (Assignment 3, Screen 17.6)
+     Interface only. Replies come from the BOT_REPLIES array in
+     script.js; a real AI service is connected in a later phase.
+     ============================================================ -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>
+    // Anyone not signed in is sent to the login page first.
+    if (!localStorage.getItem('mc_user')) { window.location.replace('login.html'); }
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Chatbot — Moungiri Coachings StudyMate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="chatbot">
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">MC</span> Moungiri</a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Open menu">&#9776;</button>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="study-material.html">Study Material</a>
+      <a href="pyq.html">PYQs</a>
+      <a href="mock-test.html">Mock Tests</a>
+      <a href="career.html">Career</a>
+      <a href="scholarships.html">Scholarships</a>
+      <a class="btn btn-ghost btn-sm" href="student-dashboard.html">Dashboard</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container" style="padding-block:34px 60px;max-width:820px">
+
+  <div class="page-head">
+    <div>
+      <h1 style="font-size:2rem">Ask a doubt</h1>
+      <p>Type a question in English and the assistant will explain it.</p>
+    </div>
+  </div>
+
+  <div class="chat-window" id="chatWindow" aria-live="polite"></div>
+
+  <form class="chat-form" id="chatForm">
+    <label for="chatInput" class="hidden">Your question</label>
+    <input type="text" id="chatInput" placeholder="For example: explain Newton's second law" autocomplete="off">
+    <button class="btn btn-primary" type="submit">Send</button>
+  </form>
+
+  <div class="suggestions">
+    <button type="button">Explain Newton's laws</button>
+    <button type="button">What is the mole concept?</button>
+    <button type="button">How should I prepare for NEET?</button>
+    <button type="button">Give me a daily study plan</button>
+    <button type="button">Which scholarships can I apply for?</button>
+  </div>
+
+  <p class="hint mt-24">
+    The prototype answers from a prepared set of replies. Once the platform is
+    hosted, this screen will send the question to an AI service and return a
+    full explanation.
+  </p>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
